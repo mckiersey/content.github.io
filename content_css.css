@@ -7,7 +7,7 @@
 #top_box{
 	display: flex;
 	min-width: 10;
-	background: url('/Users/Seansmac/web_dev/blue_smoke.jpg');
+	background: url('blue_smoke.jpg');
 	background-size: cover;
 	flex-direction: row;
 	justify-content: space-between;
