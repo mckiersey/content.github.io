@@ -1,0 +1,90 @@
+<!-- LOG IN PAGE -->
+	<div class = "header">
+		 <h1>CONTENT</h1> 
+		<div id="navbar">
+		  <a href="index.html">Home</a>
+		  <a href="login.html">Log In</a>
+		  <a href="html_page2.html">Videos</a>
+		</div>
+	
+	</div>
+</div>
+ 
+  <form action="http://localhost:3002/users" method="post">
+      <label for="name">Name</label>
+      <input type="text" name="name">
+      <label for="email">Email</label>
+      <input type="email" name="email">
+      <input type="submit">
+<div>
+  </form>
+
+  
+ <button id="getAPI">GET DATA FROM API </button>
+           <p id="result"> Results go here</p>
+ </div>
+ 
+ 
+ 
+ <script>
+     xmlhttp = new XMLHttpRequest();
+     xmlhttp.open("POST","http://localhost:3002/users", true);
+     xmlhttp.onreadystatechange=function(){
+         if (xmlhttp.readyState==4 && xmlhttp.status==200){
+             //Process Data
+             var jsonObj = JSON.parse(xmlhttp.responseText);
+             document.getElementById("test").innerHTML = jsonObj;
+         }
+     }
+     xmlhttp.send();
+	
+	
+     document.getElementById('getAPI').addEventListener('click', getAPI);
+    
+
+ 	    function getAPI(){
+ 		//sampleUser.json is replaced by an API endpoint.
+
+ 		//Using ES6 arrow function 
+
+ 		    fetch('http://localhost:3002/users')
+ 		        .then((res) => { return res.json() })
+ 		        .then((data) => {
+ 		            let result = `<h2> Random User Info From Jsonplaceholder API</h2>`;
+ 		            data.forEach((user) => {
+ 		                const { id, name, email } = user
+ 		                result +=
+ 		                    `<div>
+ 		                     <h5> User ID: ${id} </h5>
+ 		                         <ul class="w3-ul">
+ 		                             <li> User Full Name : ${name}</li>
+ 		                             <li> User Email : ${email} </li>
+		                            
+ 		                         </ul>
+ 		                      </div>`;
+ 		                        document.getElementById('result').innerHTML = result;
+ 		                    });
+ 		                })
+ 	           }
+	
+	 
+	  
+ 	fetch('http://localhost:3002/users.json')
+ 	  .then(
+ 	    function(response) {
+ 	      if (response.status !== 200) {
+ 	        console.log('Looks like there was a problem. Status Code: ' +
+ 	          response.status);
+ 	        return;
+ 	      }
+
+ 	      // Examine the text in the response
+ 	      response.json().then(function(data) {
+ 	        console.log(data);
+ 	      });
+ 	    }
+ 	  )
+ 	  .catch(function(err) {
+ 	    console.log('Fetch Error :-S', err);
+ 	  });
+  </script>
